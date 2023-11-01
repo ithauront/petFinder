@@ -41,3 +41,5 @@ post - member { nome, email, senha, cidade e estados, telefone(whatsapp)}
 
 contexto da aplicação (visual do frontend):
 https://www.figma.com/community/file/1220006040435238030/find-a-friend-app
+
+# test
