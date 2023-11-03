@@ -783,7 +783,10 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 }
 
 agora em qualquer lugar de nossa aplicação que a gente queira registrar um usuario de qualquer forma que a gente quiser a gente so presia chamar o nosso registerUseCase e passar para ele nome email e password que ele vai criar.
-sempre ue a gente separa algo no nosso codigo é interessante ter um bom motivo para essa separaão porque se não a gente pode acabar complicando o codigo. o caso acima tinha um bom motivo. e agora do ueCases nos vamos separar a conexão com o banco de dados. isso tambem vai em breve ter bos motivos para isso. para fazer isso nos vamos criar uma pasta chamada repositories e dentro del vamos criar um arquivo chamado prisma-users(o nome da tabel que estamos usando)-repository.ts
+sempre ue a gente separa algo no nosso codigo é interessante ter um bom motivo para essa separaão porque se não a gente pode acabar complicando o codigo. o caso acima tinha um bom motivo.
+# repository
+## fazer uma rapida e descartavel rota get la no app apenas para ver se o cat foi criado tambem. a requisição voltou com created mas para so ter certeza.
+ e agora do ueCases nos vamos separar a conexão com o banco de dados. isso tambem vai em breve ter bos motivos para isso. para fazer isso nos vamos criar uma pasta chamada repositories e dentro del vamos criar um arquivo chamado prisma-users(o nome da tabel que estamos usando)-repository.ts
 dentro dele nos vamos exportar uma classe chamada prismaUserRepositories e dentro dele vamos ter varios metodos que vão interceptar ou ser as portas de entrada para qualquer importação que a gente for fazer no banco de dados então todas as alterações no banco de dados vao passar pelo repositories.
 a primeira que a gente vaicolocar vai ser a que a gente vai tirar do useCases para criar o usuario
 a gente da um async create(data) { e qui dentro a gente passa o que a gente pegou do useCase que é isso:await prisma.user.create({
