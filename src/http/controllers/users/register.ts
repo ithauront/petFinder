@@ -1,7 +1,6 @@
 import { prisma } from '@/lib/prisma'
-import { registerUseCase } from '@/use-cases/register'
-import { cepToCityAndState } from '@/utils/cepToCityAndState'
-import { hash } from 'bcryptjs'
+import { RegisterUseCase } from '@/use-cases/register'
+import { PrismaOrgsRepository } from '@/use-cases/repositories/prisma/prisma-orgs-repository'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
@@ -18,7 +17,15 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   )
 
   try {
-    const org = await registerUseCase({ name, email, password, cep, phone })
+    const prismaOrgsRepository = new PrismaOrgsRepository()
+    const registerUseCase = new RegisterUseCase(prismaOrgsRepository)
+    const org = await registerUseCase.execute({
+      name,
+      email,
+      password,
+      cep,
+      phone,
+    })
     return reply.status(201).send({ org })
   } catch (err) {
     return reply.status(409).send()

@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { cepToCityAndState } from '@/utils/cepToCityAndState'
 import { hash } from 'bcryptjs'
+import { OrgsRepository } from './repositories/orgs-repository'
 
 interface RegisterUseCaseParams {
   name: string
@@ -10,31 +11,27 @@ interface RegisterUseCaseParams {
   phone: string
 }
 
-export async function registerUseCase({
-  name,
-  email,
-  password,
-  cep,
-  phone,
-}: RegisterUseCaseParams) {
-  const password_hash = await hash(password, 6)
+export class RegisterUseCase {
+  constructor(private orgsRepository: OrgsRepository) {}
 
-  const cepInfo = await cepToCityAndState(cep)
-  if (!cepInfo) {
-    throw new Error('Invalid CEP number.')
-  }
+  async execute({ name, email, password, cep, phone }: RegisterUseCaseParams) {
+    const password_hash = await hash(password, 6)
 
-  const { city, state } = cepInfo
+    const cepInfo = await cepToCityAndState(cep)
+    if (!cepInfo) {
+      throw new Error('Invalid CEP number.')
+    }
 
-  const orgWithSameEmail = await prisma.orgs.findUnique({
-    where: { email },
-  })
-  if (orgWithSameEmail) {
-    throw new Error('Email already exists.')
-  }
+    const { city, state } = cepInfo
 
-  await prisma.orgs.create({
-    data: {
+    const orgWithSameEmail = await prisma.orgs.findUnique({
+      where: { email },
+    })
+    if (orgWithSameEmail) {
+      throw new Error('Email already exists.')
+    }
+
+    await this.orgsRepository.create({
       name,
       email,
       password_hash,
@@ -42,6 +39,6 @@ export async function registerUseCase({
       city,
       state,
       phone,
-    },
-  })
+    })
+  }
 }
