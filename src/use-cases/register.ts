@@ -24,9 +24,8 @@ export class RegisterUseCase {
 
     const { city, state } = cepInfo
 
-    const orgWithSameEmail = await prisma.orgs.findUnique({
-      where: { email },
-    })
+    const orgWithSameEmail = await this.orgsRepository.findByEmail(email)
+
     if (orgWithSameEmail) {
       throw new Error('Email already exists.')
     }
