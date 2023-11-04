@@ -1,7 +1,7 @@
-import { prisma } from '@/lib/prisma'
 import { cepToCityAndState } from '@/utils/cepToCityAndState'
 import { hash } from 'bcryptjs'
 import { OrgsRepository } from './repositories/orgs-repository'
+import { OrgAlreadyExistsError } from './errors/orgAlreadyExists'
 
 interface RegisterUseCaseParams {
   name: string
@@ -27,7 +27,7 @@ export class RegisterUseCase {
     const orgWithSameEmail = await this.orgsRepository.findByEmail(email)
 
     if (orgWithSameEmail) {
-      throw new Error('Email already exists.')
+      throw new OrgAlreadyExistsError()
     }
 
     await this.orgsRepository.create({

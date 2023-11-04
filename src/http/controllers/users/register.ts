@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { OrgAlreadyExistsError } from '@/use-cases/errors/orgAlreadyExists'
 import { RegisterUseCase } from '@/use-cases/register'
 import { PrismaOrgsRepository } from '@/use-cases/repositories/prisma/prisma-orgs-repository'
 import { FastifyReply, FastifyRequest } from 'fastify'
@@ -28,6 +28,9 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     })
     return reply.status(201).send({ org })
   } catch (err) {
-    return reply.status(409).send()
+    if (err instanceof OrgAlreadyExistsError) {
+      return reply.status(409).send({ message: err.message })
+    }
+    return reply.status(500).send()
   }
 }
