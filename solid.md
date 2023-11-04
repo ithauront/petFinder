@@ -1272,7 +1272,7 @@ a função com watch não funciona comigo e fica dando falsos positivos. eu não
 ## testes
 olhando nossas regras de negocios. cada uma delas exige teste.
 vamos fazer um teste para ver se esta gerando a senha hasheada
-vamos no nosso arquivo de teste e apagamos aquele teste que fizemos. na importação fazemos tambem a importação do describe.
+vamos no nosso arquivo de teste e apagamos aquele teste que fizemos. na importação fazemos tambem a importação do describe  .
 e vamos usar o describe para categorizar os testes dentro dele como o register use case fica assim
 import { expect, test, describe } from 'vitest'
 
