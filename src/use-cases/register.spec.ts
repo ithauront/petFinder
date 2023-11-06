@@ -7,9 +7,9 @@ import { OrgAlreadyExistsError } from './errors/orgAlreadyExists'
 describe('register use case', () => {
   test('if registration happens', async () => {
     const orgRepository = new InMemoryOrgsRepository()
-    const registerUseCase = new RegisterUseCase(orgRepository)
+    const sut = new RegisterUseCase(orgRepository)
 
-    const { org } = await registerUseCase.execute({
+    const { org } = await sut.execute({
       name: 'Jhon Doe',
       email: 'jhon@doe.com',
       cep: '41950-810',
@@ -20,9 +20,9 @@ describe('register use case', () => {
   })
   test('if hash org password upon registration', async () => {
     const orgRepository = new InMemoryOrgsRepository()
-    const registerUseCase = new RegisterUseCase(orgRepository)
+    const sut = new RegisterUseCase(orgRepository)
 
-    const { org } = await registerUseCase.execute({
+    const { org } = await sut.execute({
       name: 'Jhon Doe',
       email: 'jhon@doe.com',
       cep: '41950-810',
@@ -38,10 +38,10 @@ describe('register use case', () => {
   })
   test('if cannot ise the same email', async () => {
     const userRepository = new InMemoryOrgsRepository()
-    const registerUseCase = new RegisterUseCase(userRepository)
+    const sut = new RegisterUseCase(userRepository)
     const email = 'jhon@doe.com'
 
-    await registerUseCase.execute({
+    await sut.execute({
       name: 'Jhon Doe',
       email,
       cep: '41950-810',
@@ -49,7 +49,7 @@ describe('register use case', () => {
       password: 'testpassword',
     })
     await expect(() =>
-      registerUseCase.execute({
+      sut.execute({
         name: 'Jhon Doe',
         email,
         cep: '41950-810',
