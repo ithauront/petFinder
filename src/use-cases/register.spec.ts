@@ -18,6 +18,20 @@ describe('register use case', () => {
     })
     expect(org.orgId).toEqual(expect.any(String))
   })
+  test('if cepToCityandState function is returning the corect location', async () => {
+    const orgRepository = new InMemoryOrgsRepository()
+    const sut = new RegisterUseCase(orgRepository)
+
+    const { org } = await sut.execute({
+      name: 'Jhon Doe',
+      email: 'jhon@doe.com',
+      cep: '41950-810',
+      phone: '01548752',
+      password: 'testpassword',
+    })
+    expect(org.city).toEqual('Salvador')
+    expect(org.state).toEqual('BA')
+  })
   test('if hash org password upon registration', async () => {
     const orgRepository = new InMemoryOrgsRepository()
     const sut = new RegisterUseCase(orgRepository)
