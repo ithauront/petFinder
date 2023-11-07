@@ -14,8 +14,8 @@ describe('autenticate use case', () => {
   })
   test('if autentication happens', async () => {
     await orgsRepository.create({
-      name: 'Jhon Doe',
-      email: 'jhon@doe.com',
+      name: 'Dog Finder',
+      email: 'dog@finder.com',
       cep: '41950-810',
       phone: '01548752',
       password_hash: await hash('testpassword', 6),
@@ -24,7 +24,7 @@ describe('autenticate use case', () => {
     })
 
     const { org } = await sut.execute({
-      email: 'jhon@doe.com',
+      email: 'dog@finder.com',
       password: 'testpassword',
     })
     expect(org.orgId).toEqual(expect.any(String))
@@ -33,7 +33,7 @@ describe('autenticate use case', () => {
   test('if autentication with wrong email fails', async () => {
     await expect(() =>
       sut.execute({
-        email: 'jhon@doe.com',
+        email: 'dog@finder.com',
         password: 'testpassword',
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError)
@@ -41,8 +41,8 @@ describe('autenticate use case', () => {
 
   test('if autentication with wrong password fails', async () => {
     await orgsRepository.create({
-      name: 'Jhon Doe',
-      email: 'jhon@doe.com',
+      name: 'Dog Finder',
+      email: 'dog@finder.com',
       cep: '41950-810',
       phone: '01548752',
       password_hash: await hash('testpassword', 6),
@@ -52,7 +52,7 @@ describe('autenticate use case', () => {
 
     await expect(() =>
       sut.execute({
-        email: 'jhon@doe.com',
+        email: 'dog@finder.com',
         password: 'wrongpassword',
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError)

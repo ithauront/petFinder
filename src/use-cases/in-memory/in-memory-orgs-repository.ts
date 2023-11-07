@@ -13,6 +13,15 @@ export class InMemoryOrgsRepository implements OrgsRepository {
     return org
   }
 
+  async findById(orgId: string): Promise<Orgs | null> {
+    const org = this.Itens.find((item) => item.orgId === orgId)
+
+    if (!org) {
+      return null
+    }
+    return org
+  }
+
   async create(data: Prisma.OrgsCreateInput): Promise<Orgs> {
     const cepInfo = await cepToCityAndState(data.cep)
     if (!cepInfo) {

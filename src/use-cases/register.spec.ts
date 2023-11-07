@@ -14,8 +14,8 @@ describe('register use case', () => {
   })
   test('if registration happens', async () => {
     const { org } = await sut.execute({
-      name: 'Jhon Doe',
-      email: 'jhon@doe.com',
+      name: 'Dog Finder',
+      email: 'dog@finder.com',
       cep: '41950-810',
       phone: '01548752',
       password: 'testpassword',
@@ -24,8 +24,8 @@ describe('register use case', () => {
   })
   test('if cepToCityandState function is returning the corect location', async () => {
     const { org } = await sut.execute({
-      name: 'Jhon Doe',
-      email: 'jhon@doe.com',
+      name: 'Dog Finder',
+      email: 'dog@finder.com',
       cep: '41950-810',
       phone: '01548752',
       password: 'testpassword',
@@ -35,8 +35,8 @@ describe('register use case', () => {
   })
   test('if hash org password upon registration', async () => {
     const { org } = await sut.execute({
-      name: 'Jhon Doe',
-      email: 'jhon@doe.com',
+      name: 'Dog Finder',
+      email: 'dog@finder.com',
       cep: '41950-810',
       phone: '01548752',
       password: 'testpassword',
@@ -49,10 +49,10 @@ describe('register use case', () => {
     expect(isPasswordCorectlyHashed).toBe(true)
   })
   test('if cannot ise the same email', async () => {
-    const email = 'jhon@doe.com'
+    const email = 'dog@finder.com'
 
     await sut.execute({
-      name: 'Jhon Doe',
+      name: 'Dog Finder',
       email,
       cep: '41950-810',
       phone: '01548752',
@@ -60,7 +60,7 @@ describe('register use case', () => {
     })
     await expect(() =>
       sut.execute({
-        name: 'Jhon Doe',
+        name: 'Dog Finder',
         email,
         cep: '41950-810',
         phone: '01548752',

@@ -2169,6 +2169,7 @@ describe('get user profile use case', () => {
   })
 })
 
+# terminar os useCases
 nos vamos agora ficar um tempo mais focado nos usos de caso sem fazer os http de cada uso de aso por enquanto.
 alem disso nas nossas factories tambem estao dando erro porque a gente não implementou o medoto que fizems no prismaUsersRepositories 
 vamos implementar aqui, mas nas proximas vezes nos vamos deixar a parte do factories mais pra frente. então vamos na pasta repositories/primsa/prismaUsersRepostiries.ts
