@@ -1,14 +1,18 @@
-import { describe, expect, test } from 'vitest'
+import { beforeEach, describe, expect, test } from 'vitest'
 import { RegisterUseCase } from './register'
 import { compare } from 'bcryptjs'
 import { InMemoryOrgsRepository } from './in-memory/in-memory-orgs-repository'
 import { OrgAlreadyExistsError } from './errors/orgAlreadyExists'
 
-describe('register use case', () => {
-  test('if registration happens', async () => {
-    const orgRepository = new InMemoryOrgsRepository()
-    const sut = new RegisterUseCase(orgRepository)
+let OrgsRepository: InMemoryOrgsRepository
+let sut: RegisterUseCase
 
+describe('register use case', () => {
+  beforeEach(() => {
+    OrgsRepository = new InMemoryOrgsRepository()
+    sut = new RegisterUseCase(OrgsRepository)
+  })
+  test('if registration happens', async () => {
     const { org } = await sut.execute({
       name: 'Jhon Doe',
       email: 'jhon@doe.com',
@@ -19,9 +23,6 @@ describe('register use case', () => {
     expect(org.orgId).toEqual(expect.any(String))
   })
   test('if cepToCityandState function is returning the corect location', async () => {
-    const orgRepository = new InMemoryOrgsRepository()
-    const sut = new RegisterUseCase(orgRepository)
-
     const { org } = await sut.execute({
       name: 'Jhon Doe',
       email: 'jhon@doe.com',
@@ -33,9 +34,6 @@ describe('register use case', () => {
     expect(org.state).toEqual('BA')
   })
   test('if hash org password upon registration', async () => {
-    const orgRepository = new InMemoryOrgsRepository()
-    const sut = new RegisterUseCase(orgRepository)
-
     const { org } = await sut.execute({
       name: 'Jhon Doe',
       email: 'jhon@doe.com',
@@ -51,8 +49,6 @@ describe('register use case', () => {
     expect(isPasswordCorectlyHashed).toBe(true)
   })
   test('if cannot ise the same email', async () => {
-    const userRepository = new InMemoryOrgsRepository()
-    const sut = new RegisterUseCase(userRepository)
     const email = 'jhon@doe.com'
 
     await sut.execute({
