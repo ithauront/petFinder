@@ -3,6 +3,7 @@ import { RegisterUseCase } from './register'
 import { compare } from 'bcryptjs'
 import { InMemoryOrgsRepository } from '../in-memory/in-memory-orgs-repository'
 import { OrgAlreadyExistsError } from '../errors/orgAlreadyExists'
+import { error } from 'console'
 
 let OrgsRepository: InMemoryOrgsRepository
 let sut: RegisterUseCase
@@ -67,5 +68,17 @@ describe('register use case', () => {
         password: 'testpassword',
       }),
     ).rejects.toBeInstanceOf(OrgAlreadyExistsError)
+  })
+  test.skip('if wrong cep returns an error', async () => {
+    // criar um mock para a chamada http
+    await expect(
+      sut.execute({
+        name: 'Dog Finder',
+        email: 'dog@finder.com',
+        cep: '41950-8103234564235642',
+        phone: '01548752',
+        password: 'testpassword',
+      }),
+    ).rejects.toBeInstanceOf(Error)
   })
 })

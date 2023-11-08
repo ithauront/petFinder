@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for use-cases/register.ts</title>
+    <title>Code coverage report for use-cases/pets/register-pet.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../prettify.css" />
-    <link rel="stylesheet" href="../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">use-cases</a> register.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">use-cases/pets</a> register-pet.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.36% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/55</span>
+                <span class='fraction'>50/50</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.36% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/55</span>
+                <span class='fraction'>50/50</span>
             </div>
         
             
@@ -113,12 +113,7 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -140,92 +135,82 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { cepToCityAndState } from '@/utils/cepToCityAndState'
-import { hash } from 'bcryptjs'
-import { OrgsRepository } from './repositories/orgs-repository'
-import { OrgAlreadyExistsError } from './errors/orgAlreadyExists'
-import { Orgs } from '@prisma/client'
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { $Enums, Pets } from '@prisma/client'
+import { PetsRepository } from '../repositories/pets-repository'
 &nbsp;
-interface RegisterUseCaseParams {
+interface RegisterPetUseCaseParams {
   name: string
-  email: string
-  password: string
-  cep: string
-  phone: string
+  description: string
+  age: string
+  size: $Enums.SizeEnum
+  energyLevel: $Enums.EnergyEnum
+  independenceLevel: $Enums.IndependenceEnum
+  spaceRequired: $Enums.SpaceEnum
+  image: string
+  adoptionRequirements: string
+  orgId: string
 }
 &nbsp;
-interface RegisterUseCaseResponse {
-  org: Orgs
+interface RegisterPetUseCaseResponse {
+  pet: Pets
 }
 &nbsp;
-export class RegisterUseCase {
-  constructor(private orgsRepository: OrgsRepository) {}
+export class RegisterPetUseCase {
+  constructor(private petsRepository: PetsRepository) {}
 &nbsp;
   async execute({
     name,
-    email,
-    password,
-    cep,
-    phone,
-  }: RegisterUseCaseParams): Promise&lt;RegisterUseCaseResponse&gt; {
-    const password_hash = await hash(password, 6)
-&nbsp;
-    const cepInfo = await cepToCityAndState(cep)
-    if (!cepInfo) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new Error('Invalid CEP number.')</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-&nbsp;
-    const { city, state } = cepInfo
-&nbsp;
-    const orgWithSameEmail = await this.orgsRepository.findByEmail(email)
-&nbsp;
-    if (orgWithSameEmail) {
-      throw new OrgAlreadyExistsError()
-    }
-&nbsp;
-    const org = await this.orgsRepository.create({
+    description,
+    age,
+    energyLevel,
+    independenceLevel,
+    adoptionRequirements,
+    image,
+    orgId,
+    size,
+    spaceRequired,
+  }: RegisterPetUseCaseParams): Promise&lt;RegisterPetUseCaseResponse&gt; {
+    const pet = await this.petsRepository.create({
       name,
-      email,
-      password_hash,
-      cep, // mesmo transformando o cep em cidade e estado, ainda acho interessante salvar essa informação.
-      city,
-      state,
-      phone,
+      description,
+      age,
+      energyLevel,
+      independenceLevel,
+      adoptionRequirements,
+      image,
+      orgId,
+      size,
+      spaceRequired,
     })
-    return { org }
+    return { pet }
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -235,16 +220,16 @@ export class RegisterUseCase {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-06T10:54:29.705Z
+                at 2023-11-08T18:13:02.510Z
             </div>
-        <script src="../prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../sorter.js"></script>
-        <script src="../block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     
