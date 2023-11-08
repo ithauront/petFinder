@@ -9,6 +9,7 @@ export interface ListPetsUseCaseParams {
   spaceRequired?: $Enums.SpaceEnum
   energyLevel?: $Enums.EnergyEnum
   independenceLevel?: $Enums.IndependenceEnum
+  page?: number
 }
 
 interface ListPetsUseCaseResponse {
@@ -25,6 +26,7 @@ export class ListPetsUseCase {
     independenceLevel,
     size,
     spaceRequired,
+    page,
   }: ListPetsUseCaseParams): Promise<ListPetsUseCaseResponse> {
     const pets = await this.petsRepository.findManyByCity({
       city,
@@ -33,6 +35,7 @@ export class ListPetsUseCase {
       independenceLevel,
       size,
       spaceRequired,
+      page,
     })
     if (pets.length === 0) {
       throw new ResourceNotFoundError()

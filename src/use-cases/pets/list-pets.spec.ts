@@ -62,7 +62,7 @@ describe('list pets use case', () => {
       size: 'medio',
       spaceRequired: 'medio',
     })
-    const { pets } = await sut.execute({ city: 'rightCity' })
+    const { pets } = await sut.execute({ city: 'rightCity', page: 1 })
     expect(pets).toBeInstanceOf(Array)
     expect(pets).toHaveLength(1)
     expect(pets[0].orgId).toBe(goodOrg.orgId)
@@ -136,6 +136,7 @@ describe('list pets use case', () => {
       age: '5',
       size: $Enums.SizeEnum.pequeno,
       energyLevel: $Enums.EnergyEnum.media,
+      page: 1,
     }
     const { pets } = await sut.execute(filters)
     expect(pets).toBeInstanceOf(Array)

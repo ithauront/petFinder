@@ -52,7 +52,10 @@ export class InMemoryPetsRepository implements PetsRepository {
         (item) => item.spaceRequired === data.spaceRequired,
       )
     }
+    const currentPage = data.page ?? 1
+    const startIndex = (currentPage - 1) * 20
+    const endIndex = currentPage * 20
 
-    return petsInCity.length > 0 ? petsInCity : []
+    return petsInCity.length > 0 ? petsInCity.slice(startIndex, endIndex) : []
   }
 }
