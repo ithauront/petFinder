@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 import { InMemoryPetsRepository } from '../in-memory/in-memory-pets-repository'
 import { ListPetsUseCase } from './list-pets'
+import { $Enums } from '@prisma/client'
 
 let PetsRepository: InMemoryPetsRepository
 let sut: ListPetsUseCase
@@ -11,20 +12,32 @@ describe('list pets use case', () => {
     sut = new ListPetsUseCase(PetsRepository)
   })
   test('if can list pets', async () => {
-    const org = {
+    const goodOrg = {
       orgId: 'orgId01',
       name: 'Dog Finder',
       email: 'dog@finder.com',
       cep: '41950-810',
       phone: '01548752',
       password_hash: 'testpassword',
-      city: 'testCity',
+      city: 'rightCity',
       state: 'testState',
       created_at: new Date(),
     }
 
-    PetsRepository.Orgs.push(org)
+    PetsRepository.Orgs.push(goodOrg)
 
+    const badOrg = {
+      orgId: 'orgId02',
+      name: 'Dog Finder',
+      email: 'dog@finder.com',
+      cep: '41950-810',
+      phone: '01548752',
+      password_hash: 'testpassword',
+      city: 'wrongCity',
+      state: 'testState',
+      created_at: new Date(),
+    }
+    PetsRepository.Orgs.push(badOrg)
     await PetsRepository.create({
       name: 'Doguinho',
       description: 'Um cachorro carinhoso',
@@ -33,7 +46,7 @@ describe('list pets use case', () => {
       independenceLevel: 'alta',
       adoptionRequirements: 'Precisa ter muito amor para dar',
       image: 'Imagem de doguinho',
-      orgId: org.orgId,
+      orgId: goodOrg.orgId,
       size: 'medio',
       spaceRequired: 'medio',
     })
@@ -45,13 +58,90 @@ describe('list pets use case', () => {
       independenceLevel: 'alta',
       adoptionRequirements: 'Precisa ter muito amor para dar',
       image: 'Imagem de doguinho',
-      orgId: org.orgId,
+      orgId: badOrg.orgId,
       size: 'medio',
       spaceRequired: 'medio',
     })
-    const { pets } = await sut.execute({ city: 'testCity' })
+    const { pets } = await sut.execute({ city: 'rightCity' })
     expect(pets).toBeInstanceOf(Array)
-    expect(pets).toHaveLength(2)
-    expect(pets[0].orgId).toBe(org.orgId)
+    expect(pets).toHaveLength(1)
+    expect(pets[0].orgId).toBe(goodOrg.orgId)
+  })
+  test('if can filter with optional filters combined', async () => {
+    const goodOrg = {
+      orgId: 'orgId01',
+      name: 'Dog Finder',
+      email: 'dog@finder.com',
+      cep: '41950-810',
+      phone: '01548752',
+      password_hash: 'testpassword',
+      city: 'rightCity',
+      state: 'testState',
+      created_at: new Date(),
+    }
+
+    PetsRepository.Orgs.push(goodOrg)
+    const badOrg = {
+      orgId: 'orgId02',
+      name: 'Dog Finder',
+      email: 'dog@finder.com',
+      cep: '41950-810',
+      phone: '01548752',
+      password_hash: 'testpassword',
+      city: 'wrongCity',
+      state: 'testState',
+      created_at: new Date(),
+    }
+    PetsRepository.Orgs.push(badOrg)
+
+    await PetsRepository.create({
+      name: 'Doguinho',
+      description: 'Um cachorro carinhoso',
+      age: '5',
+      energyLevel: 'media',
+      independenceLevel: 'alta',
+      adoptionRequirements: 'Precisa ter muito amor para dar',
+      image: 'Imagem de doguinho',
+      orgId: goodOrg.orgId,
+      size: 'pequeno',
+      spaceRequired: 'medio',
+    })
+    await PetsRepository.create({
+      name: 'Gatinho',
+      description: 'Um gato carinhoso',
+      age: '3',
+      energyLevel: 'media',
+      independenceLevel: 'alta',
+      adoptionRequirements: 'Precisa ter muito amor para dar',
+      image: 'Imagem de doguinho',
+      orgId: goodOrg.orgId,
+      size: 'medio',
+      spaceRequired: 'medio',
+    })
+    await PetsRepository.create({
+      name: 'Donatello',
+      description: 'Um tartaruga ninja',
+      age: '5',
+      energyLevel: 'media',
+      independenceLevel: 'alta',
+      adoptionRequirements: 'Precisa ter muito amor para dar',
+      image: 'Imagem de doguinho',
+      orgId: badOrg.orgId,
+      size: 'medio',
+      spaceRequired: 'medio',
+    })
+
+    const filters = {
+      city: 'rightCity',
+      age: '5',
+      size: $Enums.SizeEnum.pequeno,
+      energyLevel: $Enums.EnergyEnum.media,
+    }
+    const { pets } = await sut.execute(filters)
+    expect(pets).toBeInstanceOf(Array)
+    expect(pets).toHaveLength(1)
+    expect(pets[0].orgId).toBe(goodOrg.orgId)
+    expect(pets[0].age).toBe('5')
+    expect(pets[0].size).toBe('pequeno')
   })
 })
