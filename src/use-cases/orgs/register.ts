@@ -1,7 +1,7 @@
 import { cepToCityAndState } from '@/utils/cepToCityAndState'
 import { hash } from 'bcryptjs'
-import { OrgsRepository } from './repositories/orgs-repository'
-import { OrgAlreadyExistsError } from './errors/orgAlreadyExists'
+import { OrgsRepository } from '../repositories/orgs-repository'
+import { OrgAlreadyExistsError } from '../errors/orgAlreadyExists'
 import { Orgs } from '@prisma/client'
 
 interface RegisterUseCaseParams {

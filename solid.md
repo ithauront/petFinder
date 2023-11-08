@@ -2897,7 +2897,7 @@ nos pavamos passar as coisas que são para a criação de uma gyl
 upcional é diferente de nulo por isso não colocamos a descrição como opcional. isso porque ao criar uma academia com a descrição vazia a gente pode simplismente não eviar a descriçéao. mas para atualizar se a gente não envia a descrição a gente não quer mexer ele e não atualizar para vazio. por isso que as vezes tambem temos opcional e nulo.
 interface CreateGymUseCaseParams {
   title: string
-  description: string | null
+  description: string | nulln
   phone: string
   latitude: number
   longitude: number

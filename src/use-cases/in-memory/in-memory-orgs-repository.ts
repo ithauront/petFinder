@@ -1,6 +1,7 @@
 import { Orgs, Prisma } from '@prisma/client'
 import { OrgsRepository } from '../repositories/orgs-repository'
 import { cepToCityAndState } from '@/utils/cepToCityAndState'
+import { randomUUID } from 'node:crypto'
 
 export class InMemoryOrgsRepository implements OrgsRepository {
   public Itens: Orgs[] = []
@@ -30,7 +31,7 @@ export class InMemoryOrgsRepository implements OrgsRepository {
 
     const { city, state } = cepInfo
     const org = {
-      orgId: '123456',
+      orgId: randomUUID(),
       name: data.name,
       email: data.email,
       password_hash: data.password_hash,

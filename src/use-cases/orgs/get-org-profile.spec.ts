@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, test } from 'vitest'
-import { InMemoryOrgsRepository } from './in-memory/in-memory-orgs-repository'
+import { InMemoryOrgsRepository } from '../in-memory/in-memory-orgs-repository'
 import { hash } from 'bcryptjs'
 import { GetOrgProfileUseCase } from './get-org-profile'
-import { ResourceNotFoundError } from './errors/resourceNotFound'
+import { ResourceNotFoundError } from '../errors/resourceNotFound'
 
 let orgsRepository: InMemoryOrgsRepository
 let sut: GetOrgProfileUseCase

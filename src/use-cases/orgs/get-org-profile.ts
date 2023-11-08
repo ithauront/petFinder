@@ -1,5 +1,5 @@
-import { OrgsRepository } from './repositories/orgs-repository'
-import { ResourceNotFoundError } from './errors/resourceNotFound'
+import { OrgsRepository } from '../repositories/orgs-repository'
+import { ResourceNotFoundError } from '../errors/resourceNotFound'
 import { Orgs } from '@prisma/client'
 
 interface GetOrgProfileUseCaseRequest {

@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 import { RegisterUseCase } from './register'
 import { compare } from 'bcryptjs'
-import { InMemoryOrgsRepository } from './in-memory/in-memory-orgs-repository'
-import { OrgAlreadyExistsError } from './errors/orgAlreadyExists'
+import { InMemoryOrgsRepository } from '../in-memory/in-memory-orgs-repository'
+import { OrgAlreadyExistsError } from '../errors/orgAlreadyExists'
 
 let OrgsRepository: InMemoryOrgsRepository
 let sut: RegisterUseCase
@@ -48,7 +48,7 @@ describe('register use case', () => {
     )
     expect(isPasswordCorectlyHashed).toBe(true)
   })
-  test('if cannot ise the same email', async () => {
+  test('if cannot use the same email', async () => {
     const email = 'dog@finder.com'
 
     await sut.execute({
