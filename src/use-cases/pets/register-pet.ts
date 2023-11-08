@@ -1,6 +1,3 @@
-import { cepToCityAndState } from '@/utils/cepToCityAndState'
-import { hash } from 'bcryptjs'
-import { OrgAlreadyExistsError } from '../errors/orgAlreadyExists'
 import { $Enums, Pets } from '@prisma/client'
 import { PetsRepository } from '../repositories/pets-repository'
 

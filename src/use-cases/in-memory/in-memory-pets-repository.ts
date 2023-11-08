@@ -1,9 +1,11 @@
-import { Pets, Prisma } from '@prisma/client'
+import { $Enums, Orgs, Pets, Prisma } from '@prisma/client'
 import { PetsRepository } from '../repositories/pets-repository'
 import { randomUUID } from 'node:crypto'
+import { ListPetsUseCaseParams } from '../pets/list-pets'
 
 export class InMemoryPetsRepository implements PetsRepository {
-  public Items: Pets[] = []
+  public Pets: Pets[] = []
+  public Orgs: Orgs[] = []
 
   async create(data: Prisma.PetsUncheckedCreateInput): Promise<Pets> {
     const pet = {
@@ -20,7 +22,37 @@ export class InMemoryPetsRepository implements PetsRepository {
       energyLevel: data.energyLevel,
     }
 
-    this.Items.push(pet)
+    this.Pets.push(pet)
     return pet
+  }
+
+  async findManyByCity(data: ListPetsUseCaseParams): Promise<Pets[]> {
+    const orgsInCity = this.Orgs.filter((org) => org.city === data.city)
+    const orgIdInCity = orgsInCity.map((org) => org.orgId)
+    let petsInCity = this.Pets.filter((pet) => orgIdInCity.includes(pet.orgId))
+
+    if (data.age) {
+      petsInCity = petsInCity.filter((item) => item.age === data.age)
+    }
+    if (data.energyLevel) {
+      petsInCity = petsInCity.filter(
+        (item) => item.energyLevel === data.energyLevel,
+      )
+    }
+    if (data.independenceLevel) {
+      petsInCity = petsInCity.filter(
+        (item) => item.independenceLevel === data.independenceLevel,
+      )
+    }
+    if (data.size) {
+      petsInCity = petsInCity.filter((item) => item.size === data.size)
+    }
+    if (data.spaceRequired) {
+      petsInCity = petsInCity.filter(
+        (item) => item.spaceRequired === data.spaceRequired,
+      )
+    }
+
+    return petsInCity.length > 0 ? petsInCity : []
   }
 }
