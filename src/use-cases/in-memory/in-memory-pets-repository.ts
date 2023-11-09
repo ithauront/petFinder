@@ -2,6 +2,7 @@ import { $Enums, Orgs, Pets, Prisma } from '@prisma/client'
 import { PetsRepository } from '../repositories/pets-repository'
 import { randomUUID } from 'node:crypto'
 import { ListPetsUseCaseParams } from '../pets/list-pets'
+import { ResourceNotFoundError } from '../errors/resourceNotFound'
 
 export class InMemoryPetsRepository implements PetsRepository {
   public Pets: Pets[] = []
@@ -28,6 +29,11 @@ export class InMemoryPetsRepository implements PetsRepository {
 
   async findManyByCity(data: ListPetsUseCaseParams): Promise<Pets[]> {
     const orgsInCity = this.Orgs.filter((org) => org.city === data.city)
+
+    if (orgsInCity.length === 0) {
+      throw new Error('No organizations found in this city')
+    }
+
     const orgIdInCity = orgsInCity.map((org) => org.orgId)
     let petsInCity = this.Pets.filter((pet) => orgIdInCity.includes(pet.orgId))
 
@@ -39,11 +45,6 @@ export class InMemoryPetsRepository implements PetsRepository {
         (item) => item.energyLevel === data.energyLevel,
       )
     }
-    if (data.independenceLevel) {
-      petsInCity = petsInCity.filter(
-        (item) => item.independenceLevel === data.independenceLevel,
-      )
-    }
     if (data.size) {
       petsInCity = petsInCity.filter((item) => item.size === data.size)
     }
@@ -52,6 +53,12 @@ export class InMemoryPetsRepository implements PetsRepository {
         (item) => item.spaceRequired === data.spaceRequired,
       )
     }
+    if (data.independenceLevel) {
+      petsInCity = petsInCity.filter(
+        (item) => item.independenceLevel === data.independenceLevel,
+      )
+    }
+
     const currentPage = data.page ?? 1
     const startIndex = (currentPage - 1) * 20
     const endIndex = currentPage * 20

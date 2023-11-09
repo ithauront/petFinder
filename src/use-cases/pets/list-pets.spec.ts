@@ -145,4 +145,61 @@ describe('list pets use case', () => {
     expect(pets[0].age).toBe('5')
     expect(pets[0].size).toBe('pequeno')
   })
+
+  test('if pets came paginated', async () => {
+    const goodOrg = {
+      orgId: 'orgId01',
+      name: 'Dog Finder',
+      email: 'dog@finder.com',
+      cep: '41950-810',
+      phone: '01548752',
+      password_hash: 'testpassword',
+      city: 'rightCity',
+      state: 'testState',
+      created_at: new Date(),
+    }
+    PetsRepository.Orgs.push(goodOrg)
+    for (let i = 1; i <= 22; i++) {
+      await PetsRepository.create({
+        name: `dog${i}`,
+        description: 'Um tartaruga ninja',
+        age: '5',
+        energyLevel: 'media',
+        independenceLevel: 'alta',
+        adoptionRequirements: 'Precisa ter muito amor para dar',
+        image: 'Imagem de doguinho',
+        orgId: goodOrg.orgId,
+        size: 'medio',
+        spaceRequired: 'medio',
+      })
+    }
+    const filters = {
+      city: 'rightCity',
+      page: 2,
+    }
+    const { pets } = await sut.execute(filters)
+
+    expect(pets).toHaveLength(2)
+    expect(pets[1].name).toBe('dog22')
+  })
+  test('if wrong city gives error', async () => {
+    await PetsRepository.create({
+      name: `dog`,
+      description: 'Um tartaruga ninja',
+      age: '5',
+      energyLevel: 'media',
+      independenceLevel: 'alta',
+      adoptionRequirements: 'Precisa ter muito amor para dar',
+      image: 'Imagem de doguinho',
+      orgId: 'org01',
+      size: 'medio',
+      spaceRequired: 'medio',
+    })
+    const filters = {
+      city: 'rightCity',
+    }
+    await expect(() => sut.execute(filters)).rejects.toThrowError(
+      'No organizations found in this city',
+    )
+  })
 })
