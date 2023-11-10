@@ -1,38 +1,38 @@
 ### Regras da aplicação
 
 [v] Deve ser possível cadastrar um pet
-[] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
-[] Deve ser possível filtrar pets por suas características
+[v] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
+[v] Deve ser possível filtrar pets por suas características
 [] Deve ser possível visualizar detalhes de um pet para adoção
 [v] Deve ser possível se cadastrar como uma ORG
 [v] Deve ser possível realizar login como uma ORG
 
 ### Regras de negócio
 
-[] Para listar os pets, obrigatoriamente precisamos informar a cidade
+[v] Para listar os pets, obrigatoriamente precisamos informar a cidade
 [v] Uma ORG precisa ter um endereço e um número de WhatsApp
 [v] Um pet deve estar ligado a uma ORG
 [] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
-[] Todos os filtros, além da cidade, são opcionais
+[v] Todos os filtros, além da cidade, são opcionais
 [] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
 [v] não deve ser possivel cadastrar com email duplicado
 
 ### Requisitos não funcionais
 [v] a senha do usuario deve estar criptografada
 [] os dados da aplicação precisam estar persistidos em um banco postgrees sql
-[] todas as listas de dados precisam estar paginadas com 20 items por pagina
+[v] todas as listas de dados precisam estar paginadas com 20 items por pagina
 [] o usuario deve ser identificado por um jwt (json web token)
 
 # rotas
-post - org - { orgID, nome, email, ,cep,, telefone (whatsapp), , senha, O ROLE VAI VIR DA MESMA FORMA QUE FIZEMOS NA OUTRA? SEM PRECISAR COLOCAR NA TABELA(ADMIN, member) } como separar cidade e estado a partir do cep ? fazer uma função em utils para isso pegando pelo axios o site dos correios e fazendo a pesquisa
+post - org - { orgID, nome, email, ,cep,, telefone (whatsapp), , senha, O ROLE VAI VIR DA MESMA FORMA QUE FIZEMOS NA OUTRA? SEM PRECISAR COLOCAR NA TABELA(ADMIN, member) } como separar cidade e estado a partir do cep ? fazer uma função em utils para isso pegando pelo axios o site dos correios e fazendo a pesquisa FEITO
 
 post - autenticate - { name, senha, email} 
 
 patch - refreshToken return refrshToken
 
-post - pet - AUTENTICADO {petId, nome, description, idade,port(peq, med, grande),  nivel de energia(baixa media alta), nivel de independencia(baixa media alta), ambiente( pequeno, medio, amplo), foto, requisitos para adoção,orgID(foreingKey) , especie(gato ou cachorro)?,  }
+post - pet - AUTENTICADO {petId, nome, description, idade,port(peq, med, grande),  nivel de energia(baixa media alta), nivel de independencia(baixa media alta), ambiente( pequeno, medio, amplo), foto, requisitos para adoção,orgID(foreingKey) ,  } FEITO
 
-get - pet - {enviar cidade e estados, e filtros opcionais com as outras caracteristicas} - o retorno deve trazer todo o objeto pet com todas suas caracteristicas
+get - pet - {enviar cidade , e filtros opcionais com as outras caracteristicas} - o retorno deve trazer todo o objeto pet com todas suas caracteristicas 
 
 OPCIONAL -
 Listar orgs e mostrar todos os pets de cada org.

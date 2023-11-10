@@ -65,4 +65,12 @@ export class InMemoryPetsRepository implements PetsRepository {
 
     return petsInCity.length > 0 ? petsInCity.slice(startIndex, endIndex) : []
   }
+
+  async findPetById(petId: string): Promise<Pets | null> {
+    const pet = this.Pets.find((pet) => pet.petId === petId)
+    if (!pet) {
+      return null
+    }
+    return pet
+  }
 }
