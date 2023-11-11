@@ -61,6 +61,7 @@ model Pets {
   image                String
   adoptionRequirements String
   orgId                String
+  adopted              Boolean          @default(false)
   org                  Orgs             @relation(fields: [orgId], references: [orgId])
 
   @@map("pets")

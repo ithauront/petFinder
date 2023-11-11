@@ -1,14 +1,20 @@
-import { $Enums, Orgs, Pets, Prisma } from '@prisma/client'
+import { Orgs, Pets, Prisma } from '@prisma/client'
 import { PetsRepository } from '../repositories/pets-repository'
 import { randomUUID } from 'node:crypto'
 import { ListPetsUseCaseParams } from '../pets/list-pets'
-import { ResourceNotFoundError } from '../errors/resourceNotFound'
 
 export class InMemoryPetsRepository implements PetsRepository {
   public Pets: Pets[] = []
   public Orgs: Orgs[] = []
 
   async create(data: Prisma.PetsUncheckedCreateInput): Promise<Pets> {
+    const isAdopted = () => {
+      if (!data.adopted) {
+        return false
+      } else {
+        return true
+      }
+    }
     const pet = {
       petId: randomUUID(),
       name: data.name,
@@ -21,6 +27,7 @@ export class InMemoryPetsRepository implements PetsRepository {
       orgId: data.orgId,
       adoptionRequirements: data.adoptionRequirements,
       energyLevel: data.energyLevel,
+      adopted: isAdopted(),
     }
 
     this.Pets.push(pet)
@@ -35,7 +42,9 @@ export class InMemoryPetsRepository implements PetsRepository {
     }
 
     const orgIdInCity = orgsInCity.map((org) => org.orgId)
-    let petsInCity = this.Pets.filter((pet) => orgIdInCity.includes(pet.orgId))
+    let petsInCity = this.Pets.filter(
+      (pet) => orgIdInCity.includes(pet.orgId) && pet.adopted === false,
+    )
 
     if (data.age) {
       petsInCity = petsInCity.filter((item) => item.age === data.age)

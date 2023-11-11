@@ -202,4 +202,72 @@ describe('list pets use case', () => {
       'No organizations found in this city',
     )
   })
+  test('if pet adopted dont show on list', async () => {
+    const goodOrg = {
+      orgId: 'orgId01',
+      name: 'Dog Finder',
+      email: 'dog@finder.com',
+      cep: '41950-810',
+      phone: '01548752',
+      password_hash: 'testpassword',
+      city: 'rightCity',
+      state: 'testState',
+      created_at: new Date(),
+    }
+
+    PetsRepository.Orgs.push(goodOrg)
+
+    await PetsRepository.create({
+      name: 'Gatinho',
+      description: 'Um gato carinhoso',
+      age: '3',
+      energyLevel: 'media',
+      independenceLevel: 'alta',
+      adoptionRequirements: 'Precisa ter muito amor para dar',
+      image: 'Imagem de doguinho',
+      orgId: goodOrg.orgId,
+      size: 'medio',
+      spaceRequired: 'medio',
+    })
+
+    await PetsRepository.create({
+      name: 'Donatello',
+      description: 'Um tartaruga ninja',
+      age: '5',
+      energyLevel: 'media',
+      independenceLevel: 'alta',
+      adoptionRequirements: 'Precisa ter muito amor para dar',
+      image: 'Imagem de doguinho',
+      orgId: goodOrg.orgId,
+      size: 'medio',
+      spaceRequired: 'medio',
+      adopted: true,
+    })
+
+    const filters = {
+      city: 'rightCity',
+      page: 1,
+    }
+
+    const { pets } = await sut.execute(filters)
+
+    expect(pets).toBeInstanceOf(Array)
+    expect(pets).toHaveLength(1)
+
+    expect(pets[0]).toEqual(
+      expect.objectContaining({
+        name: 'Gatinho',
+        description: 'Um gato carinhoso',
+        age: '3',
+        energyLevel: 'media',
+        independenceLevel: 'alta',
+        adoptionRequirements: 'Precisa ter muito amor para dar',
+        image: 'Imagem de doguinho',
+        orgId: goodOrg.orgId,
+        size: 'medio',
+        spaceRequired: 'medio',
+        adopted: false,
+      }),
+    )
+  })
 })

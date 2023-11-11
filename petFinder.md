@@ -3,7 +3,7 @@
 [v] Deve ser possível cadastrar um pet
 [v] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
 [v] Deve ser possível filtrar pets por suas características
-[] Deve ser possível visualizar detalhes de um pet para adoção
+[v] Deve ser possível visualizar detalhes de um pet para adoção
 [v] Deve ser possível se cadastrar como uma ORG
 [v] Deve ser possível realizar login como uma ORG
 
