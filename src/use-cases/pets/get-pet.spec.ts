@@ -41,7 +41,7 @@ describe('get pets use case', () => {
     const pets = await PetsRepository.findManyByCity({ city: 'rightCity' })
     const petId = pets[0].petId
 
-    const { pet } = await sut.execute({ petId })
+    const { pet, orgPhone } = await sut.execute({ petId })
     expect(pet).toEqual(
       expect.objectContaining({
         name: 'Doguinho',
@@ -56,6 +56,7 @@ describe('get pets use case', () => {
         spaceRequired: 'medio',
       }),
     )
+    expect(orgPhone).toBe('01548752')
   })
 
   test('if cannot get sending wrong id', async () => {

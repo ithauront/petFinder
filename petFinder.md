@@ -12,7 +12,7 @@
 [v] Para listar os pets, obrigatoriamente precisamos informar a cidade
 [v] Uma ORG precisa ter um endereço e um número de WhatsApp
 [v] Um pet deve estar ligado a uma ORG
-[] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
+[v] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
 [v] Todos os filtros, além da cidade, são opcionais
 [] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
 [v] não deve ser possivel cadastrar com email duplicado
@@ -36,7 +36,7 @@ get - pet - {enviar cidade , e filtros opcionais com as outras caracteristicas} 
 
 OPCIONAL -
 Listar orgs e mostrar todos os pets de cada org.
-deletar pet apos ser adotado ou campo de adotado (sim ou não e se for adotado não mostra mais nas pesquisas) se adcionar depois colocar como default não adotado
+ campo de adotado se for adotado não mostra mais nas pesquisas v
 post - member { nome, email, senha, cidade e estados, telefone(whatsapp)}
 
 contexto da aplicação (visual do frontend):
