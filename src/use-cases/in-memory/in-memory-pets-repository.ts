@@ -42,6 +42,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     }
 
     const orgIdInCity = orgsInCity.map((org) => org.orgId)
+
     let petsInCity = this.Pets.filter(
       (pet) => orgIdInCity.includes(pet.orgId) && pet.adopted === false,
     )
