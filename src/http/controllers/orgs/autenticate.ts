@@ -15,11 +15,20 @@ export async function autenticate(
 
   try {
     const autenticateUseCase = makeAutenticateUseCase()
-    const org = await autenticateUseCase.execute({
+    const { org } = await autenticateUseCase.execute({
       email,
       password,
     })
-    return reply.status(200).send({ org })
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: org.orgId,
+        },
+      },
+    )
+    const orgId = org.orgId
+    return reply.status(200).send({ orgId, token })
   } catch (err) {
     if (err instanceof InvalidCredentialsError) {
       return reply.status(400).send({ message: err.message })
