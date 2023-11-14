@@ -24,7 +24,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       cep,
       phone,
     })
-    return reply.status(201).send({ org })
+    return reply.status(201).send(org)
   } catch (err) {
     if (err instanceof OrgAlreadyExistsError) {
       return reply.status(409).send({ message: err.message })
