@@ -10,8 +10,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 export async function list(request: FastifyRequest, reply: FastifyReply) {
-  console.log('Recebido na requisição:', request.query)
-  const registerQuerySchema = z.object({
+  const getQuerySchema = z.object({
     city: z.string(),
     age: z.string().nullable().optional(),
     size: z.nativeEnum(SizeEnum).nullable().optional(),
@@ -29,7 +28,7 @@ export async function list(request: FastifyRequest, reply: FastifyReply) {
     page,
     size,
     spaceRequired,
-  } = registerQuerySchema.parse(request.query)
+  } = getQuerySchema.parse(request.query)
 
   try {
     const listUseCase = makeListPetsUseCase()

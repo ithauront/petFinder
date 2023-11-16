@@ -14,9 +14,13 @@ export class PrismaPetsRepository implements PetsRepository {
       where: { petId },
     })
 
+    if (!pet || !pet.orgId) {
+      return { pet: null, orgPhone: null }
+    }
+    const orgId = pet?.orgId
     const org = await prisma.orgs.findUnique({
       where: {
-        orgId: pet?.orgId,
+        orgId,
       },
     })
 
