@@ -10,6 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum RoleEnum {
+  ADMIN
+  MEMBER
+}
+
 model Orgs {
   orgId         String   @id @default(uuid())
   name          String
@@ -19,6 +24,7 @@ model Orgs {
   city          String
   state         String
   phone         String
+  role          RoleEnum @default(MEMBER)
   created_at    DateTime @default(now())
   Pets          Pets[]
 

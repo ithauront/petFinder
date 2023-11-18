@@ -1,6 +1,7 @@
 import { InvalidCredentialsError } from '@/use-cases/errors/invalidCredentials'
 import { makeAutenticateUseCase } from '@/use-cases/factory/orgs/make-autenticate'
 import { FastifyReply, FastifyRequest } from 'fastify'
+import { userInfo } from 'os'
 import { z } from 'zod'
 
 export async function autenticate(
@@ -20,7 +21,9 @@ export async function autenticate(
       password,
     })
     const token = await reply.jwtSign(
-      {},
+      {
+        role: org.role,
+      },
       {
         sign: {
           sub: org.orgId,
@@ -28,7 +31,9 @@ export async function autenticate(
       },
     )
     const refreshToken = await reply.jwtSign(
-      {},
+      {
+        role: org.role,
+      },
       {
         sign: {
           sub: org.orgId,
