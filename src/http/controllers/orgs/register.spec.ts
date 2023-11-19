@@ -16,6 +16,7 @@ describe('register org e2e', () => {
       password: '12345678',
       cep: '41950-810',
       phone: '0675487895',
+      role: 'ADMIN',
     })
     expect(response.statusCode).toEqual(201)
     expect(response.body.org).toEqual(

@@ -10,7 +10,7 @@ interface RegisterUseCaseParams {
   password: string
   cep: string
   phone: string
-  role: $Enums.RoleEnum
+  role?: $Enums.RoleEnum
 }
 
 interface RegisterUseCaseResponse {
@@ -26,7 +26,7 @@ export class RegisterUseCase {
     password,
     cep,
     phone,
-    role,
+    role = 'MEMBER',
   }: RegisterUseCaseParams): Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 

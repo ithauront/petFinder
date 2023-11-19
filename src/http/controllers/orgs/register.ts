@@ -11,11 +11,16 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     password: z.string().min(7),
     cep: z.string(),
     phone: z.string(),
-    role: z.nativeEnum(RoleEnum),
+    role: z.nativeEnum(RoleEnum).optional(),
   })
-  const { name, email, password, cep, phone, role } = registerBodySchema.parse(
-    request.body,
-  )
+  const {
+    name,
+    email,
+    password,
+    cep,
+    phone,
+    role = 'MEMBER',
+  } = registerBodySchema.parse(request.body)
 
   try {
     const registerUseCase = makeRegisterUseCase()

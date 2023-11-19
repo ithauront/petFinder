@@ -18,6 +18,7 @@ describe('get pet e2e', () => {
       password: '12345678',
       cep: '41950-810',
       phone: '0675487895',
+      role: 'ADMIN',
     })
 
     const orgResponse = await request(app.server).post('/session').send({
