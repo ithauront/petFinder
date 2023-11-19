@@ -1,5 +1,6 @@
 import { OrgAlreadyExistsError } from '@/use-cases/errors/orgAlreadyExists'
 import { makeRegisterUseCase } from '@/use-cases/factory/orgs/make-register'
+import { RoleEnum } from '@prisma/client'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
@@ -10,8 +11,9 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     password: z.string().min(7),
     cep: z.string(),
     phone: z.string(),
+    role: z.nativeEnum(RoleEnum),
   })
-  const { name, email, password, cep, phone } = registerBodySchema.parse(
+  const { name, email, password, cep, phone, role } = registerBodySchema.parse(
     request.body,
   )
 
@@ -23,6 +25,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       password,
       cep,
       phone,
+      role,
     })
     return reply.status(201).send(org)
   } catch (err) {

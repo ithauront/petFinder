@@ -1,7 +1,6 @@
 import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
-import { any } from 'zod'
 
 describe('autenticate org e2e', () => {
   beforeAll(async () => {

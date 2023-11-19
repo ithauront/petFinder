@@ -1,6 +1,7 @@
 import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
+import { createAndAutenticate } from '@/utils/test/createAndAutenticateForTest'
 
 describe('list pet e2e', () => {
   beforeAll(async () => {
@@ -12,20 +13,7 @@ describe('list pet e2e', () => {
   })
 
   test('if can list pets', async () => {
-    await request(app.server).post('/orgs').send({
-      name: 'cat shelter test',
-      email: 'test3@finder.com',
-      password: '12345678',
-      cep: '41950-810',
-      phone: '0675487895',
-    })
-
-    const orgResponse = await request(app.server).post('/session').send({
-      email: 'test3@finder.com',
-      password: '12345678',
-    })
-    const orgId = orgResponse.body.orgId
-    const token = orgResponse.body.token
+    const { orgId, token } = await createAndAutenticate(app, true)
 
     await request(app.server)
       .post('/pets')

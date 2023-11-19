@@ -2,7 +2,7 @@ import { cepToCityAndState } from '@/utils/cepToCityAndState'
 import { hash } from 'bcryptjs'
 import { OrgsRepository } from '../repositories/orgs-repository'
 import { OrgAlreadyExistsError } from '../errors/orgAlreadyExists'
-import { Orgs } from '@prisma/client'
+import { $Enums, Orgs } from '@prisma/client'
 
 interface RegisterUseCaseParams {
   name: string
@@ -10,6 +10,7 @@ interface RegisterUseCaseParams {
   password: string
   cep: string
   phone: string
+  role: $Enums.RoleEnum
 }
 
 interface RegisterUseCaseResponse {
@@ -25,6 +26,7 @@ export class RegisterUseCase {
     password,
     cep,
     phone,
+    role,
   }: RegisterUseCaseParams): Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
@@ -49,6 +51,7 @@ export class RegisterUseCase {
       city,
       state,
       phone,
+      role,
     })
     return { org }
   }
