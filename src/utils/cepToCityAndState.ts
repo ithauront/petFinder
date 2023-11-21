@@ -1,25 +1,21 @@
+import { InvalidCepError } from '@/use-cases/errors/invalidCEP'
 import axios from 'axios'
 
-interface CepInfo {
-  state: string
-  city: string
-}
-
-export async function cepToCityAndState(cep: string): Promise<CepInfo | null> {
+export async function cepToCityAndState(cep: string) {
   try {
     const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-    const data = response.data
-
-    if (data.uf && data.localidade) {
-      return {
-        state: data.uf,
-        city: data.localidade,
-      }
+    if (response.data.erro) {
+      throw new InvalidCepError()
     }
-
-    return null // CEP inválido ou não encontrado
+    return {
+      city: response.data.localidade,
+      state: response.data.uf,
+    }
   } catch (error) {
-    console.error('Erro ao obter informações do CEP:', error)
-    return null // Tratamento de erros
+    if (error instanceof axios.AxiosError) {
+      throw new InvalidCepError()
+    }
+    console.error(error)
+    throw new Error('Erro ao acessar o serviço de CEP')
   }
 }

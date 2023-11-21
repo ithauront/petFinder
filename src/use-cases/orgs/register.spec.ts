@@ -4,6 +4,7 @@ import { compare } from 'bcryptjs'
 import { InMemoryOrgsRepository } from '../in-memory/in-memory-orgs-repository'
 import { OrgAlreadyExistsError } from '../errors/orgAlreadyExists'
 import { error } from 'console'
+import { InvalidCepError } from '../errors/invalidCEP'
 
 let OrgsRepository: InMemoryOrgsRepository
 let sut: RegisterUseCase
@@ -69,8 +70,7 @@ describe('register use case', () => {
       }),
     ).rejects.toBeInstanceOf(OrgAlreadyExistsError)
   })
-  test.skip('if wrong cep returns an error', async () => {
-    // criar um mock para a chamada http
+  test('if wrong cep returns an error', async () => {
     await expect(
       sut.execute({
         name: 'Dog Finder',
@@ -79,6 +79,6 @@ describe('register use case', () => {
         phone: '01548752',
         password: 'testpassword',
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(InvalidCepError)
   })
 })

@@ -6412,7 +6412,10 @@ agora quando a gente for la no checkins/validate.spec.ts quando passamos o token
     vamos agora no teste de criação de academia gyms/create.spec.ts e fazemos a mesma coisa passamos o true onde pegamos o token.
     vamos agora na nearby.spec e na searchGym e faz a mesma coisa. e agora se a gente rodar o docker nossos testes devem passar.
 
+  
+
  # ci
+ 
     continous integration
   a ideia do ci é que a nossa aplicação possa receber novos codigos continuamente, mesmo depois do deploy. e em um projeto que muitas pessoas trabalham a gente pode ter muita gente enviando codigos e esses codigos devem passar por alguma forma de review antes de ir para programa, existem varias formas como os colegas revisarem,
   o ci são estrategias que a gente usa para receber esses codigos de forma continua.

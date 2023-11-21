@@ -1,9 +1,4 @@
 node_modules
 # Keep environment variables out of version control
 .env
-coverage/base.css
-coverage/clover.xml
-coverage/base.css
-coverage/block-navigation.js
-coverage/clover.xml
-coverage/coverage-final.json
+couverage
